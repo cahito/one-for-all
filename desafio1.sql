@@ -1,60 +1,51 @@
 DROP DATABASE IF EXISTS SpotifyClone;
-
 CREATE DATABASE SpotifyClone;
-
 CREATE TABLE SpotifyClone.artists(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    artist VARCHAR(45) NOT NULL
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  artist VARCHAR(45) NOT NULL
 ) engine = InnoDB;
-
 CREATE TABLE SpotifyClone.plans(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    plan VARCHAR(45) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  plan VARCHAR(45) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL
 ) engine = InnoDB;
-
 CREATE TABLE SpotifyClone.users(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(45) NOT NULL,
-    age INT NOT NULL,
-    plan_id INT NOT NULL,
-    subscription_date DATE NOT NULL,
-    FOREIGN KEY (plan_id) REFERENCES plans (id)
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(45) NOT NULL,
+  age INT NOT NULL,
+  plan_id INT NOT NULL,
+  subscription_date DATE NOT NULL,
+  FOREIGN KEY (plan_id) REFERENCES plans (id)
 ) engine = InnoDB;
-
 CREATE TABLE SpotifyClone.albuns(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    album VARCHAR(45) NOT NULL,
-    artist_id INT NOT NULL,
-    release_year YEAR NOT NULL,
-    FOREIGN KEY (artist_id) REFERENCES artists (id)
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  album VARCHAR(45) NOT NULL,
+  artist_id INT NOT NULL,
+  release_year YEAR NOT NULL,
+  FOREIGN KEY (artist_id) REFERENCES artists (id)
 ) engine = InnoDB;
-
 CREATE TABLE SpotifyClone.tracks(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    track VARCHAR(100) NOT NULL,
-    duration INT NOT NULL,
-    album_id INT NOT NULL,
-    FOREIGN KEY (album_id) REFERENCES albuns (id)
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  track VARCHAR(100) NOT NULL,
+  duration INT NOT NULL,
+  album_id INT NOT NULL,
+  FOREIGN KEY (album_id) REFERENCES albuns (id)
 ) engine = InnoDB;
-
 CREATE TABLE SpotifyClone.reproduction_history(
-    user_id INT NOT NULL,
-    track_id INT NOT NULL,
-    reproduction_date DATETIME NOT NULL,
-    CONSTRAINT PRIMARY KEY(user_id, track_id),
-        FOREIGN KEY (user_id) REFERENCES users (id),
-        FOREIGN KEY (track_id) REFERENCES tracks (id)
+  user_id INT NOT NULL,
+  track_id INT NOT NULL,
+  reproduction_date DATETIME NOT NULL,
+  CONSTRAINT PRIMARY KEY(user_id, track_id),
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (track_id) REFERENCES tracks (id)
 ) engine = InnoDB;
-
 CREATE TABLE SpotifyClone.followers(
-    user_id INT NOT NULL,
-    artist_id INT NOT NULL,
-    CONSTRAINT PRIMARY KEY(user_id, artist_id),
-        FOREIGN KEY (user_id) REFERENCES users (id),
-        FOREIGN KEY (artist_id) REFERENCES artists (id)
+  user_id INT NOT NULL,
+  artist_id INT NOT NULL,
+  CONSTRAINT PRIMARY KEY(user_id, artist_id),
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (artist_id) REFERENCES artists (id)
 ) engine = InnoDB;
-
 INSERT INTO SpotifyClone.artists(artist)
 VALUES('Walter Phoenix'),
   ('Peter Strong'),
@@ -62,13 +53,11 @@ VALUES('Walter Phoenix'),
   ('Freedie Shannon'),
   ('Tyler Isle'),
   ('Fog');
-
 INSERT INTO SpotifyClone.plans(plan, price)
 VALUES('gratuito', 0.00),
   ('universitario', 5.99),
   ('pessoal', 6.99),
   ('familiar', 7.99);
-
 INSERT INTO SpotifyClone.users(name, age, plan_id, subscription_date)
 VALUES('Thati', 23, 1, '2019-10-20'),
   ('Cintia', 35, 4, '2017-12-30'),
@@ -80,7 +69,6 @@ VALUES('Thati', 23, 1, '2019-10-20'),
   ('Carol', 19, 2, '2018-02-14'),
   ('Angelina', 42, 4, '2018-04-29'),
   ('Paul', 46, 4, '2017-01-17');
-
 INSERT INTO SpotifyClone.albuns(album, artist_id, release_year)
 VALUES('Envious', 1, 1990),
   ('Exuberant', 1, 1993),
@@ -92,7 +80,6 @@ VALUES('Envious', 1, 1990),
   ('Cabinet of fools', 5, 2012),
   ('No guarantees', 5, 2015),
   ('Apparatus', 6, 2015);
-
 INSERT INTO SpotifyClone.tracks(track, duration, album_id)
 VALUES("Soul For Us", 200, 1),
   ("Reflections Of Magic", 163, 1),
@@ -134,7 +121,6 @@ VALUES("Soul For Us", 200, 1),
   ("Wouldn't It Be Nice", 213, 10),
   ("Baby", 136, 10),
   ("You Make Me Feel So..", 83, 10);
-
 INSERT INTO SpotifyClone.reproduction_history(user_id, track_id, reproduction_date)
 VALUES(1, 36, '2020-02-29 10:45:55'),
   (1, 25, '2020-05-03 05:30:35'),
@@ -174,7 +160,6 @@ VALUES(1, 36, '2020-02-29 10:45:55'),
   (10, 21, '2017-12-05 05:33:43'),
   (10, 12, '2017-07-28 05:24:49'),
   (10, 13, '2017-12-26 01:03:57');
-
 INSERT INTO SpotifyClone.followers(user_id, artist_id)
 VALUES(1, 1),
   (1, 4),
